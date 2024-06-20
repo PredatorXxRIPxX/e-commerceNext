@@ -1,4 +1,4 @@
-import { cardData } from "@/api/api"
+import { cardData } from "@/app/_lib/api/api"
 import { Card } from "@chakra-ui/react"
 import CardUI from "../_lib/@Card/CardUI"
 

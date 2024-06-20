@@ -1,6 +1,8 @@
 "use client"
 import { Input , Button, InputGroup, InputRightElement } from "@chakra-ui/react"
+import React from "react"
 import Link from "next/link"
+import axios from "axios"
 import { ChangeEvent, useState } from "react"
 
 export default function Register() {
@@ -9,7 +11,10 @@ export default function Register() {
     const [password,setPassword] = useState('')
     const [show,setShow] = useState(false)
     const handleClick = () => setShow(!show)
-
+    const handleRegister = async () =>{
+        const response = await axios.post('/Route/route',{username,email,password})
+        console.log(response)
+    }
     return (
         <>
             <h1 className=" text-center text-3xl">let's start by join you in our Team</h1>
@@ -35,7 +40,7 @@ export default function Register() {
                 </div>
             </form>
             <center>
-                <Button className=" self-center" colorScheme="blue" size="lg">Register</Button>
+                <Button className=" self-center" colorScheme="blue" size="lg" onClick={handleRegister}>Register</Button>
             </center>
             <center>
 
