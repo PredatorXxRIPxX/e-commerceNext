@@ -2,15 +2,16 @@ import { Card, CardHeader, CardBody, CardFooter, Stack, Heading ,Text,Divider,Bu
 import { Image } from '@chakra-ui/react';
 
 interface CardProps {
+    id:string
     title: string;
     description: string;
     imageUrl: string;
     price: string;
 }
 
-export default function CardUI({title,description,imageUrl,price}:CardProps){
+export default function CardUI({id,title,description,imageUrl,price}:CardProps){
     return (
-        <Card maxW='sm' className='bg-white font-bold text-black p-4 rounded-lg'>
+        <Card maxW='sm' key={id} className='bg-white font-bold text-black p-4 rounded-lg'>
         <CardBody>
           <div className=' border-2 border-solid border-red-500 w-full'>
             <Image

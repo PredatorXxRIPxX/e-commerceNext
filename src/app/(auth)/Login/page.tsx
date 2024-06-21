@@ -19,7 +19,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("/api/login", { email, password });
+      const response = await axios.post("./Route/route.ts", { email, password });
       if (response.data.success) {
         //dispatch(login(response.data.user));
         router.push("/Homepage");

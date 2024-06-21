@@ -10,10 +10,12 @@ export default function Register() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [show,setShow] = useState(false)
+    
     const handleClick = () => setShow(!show)
+
     const handleRegister = async () =>{
-        const response = await axios.post('/Route/route',{username,email,password})
-        console.log(response)
+        const response = await axios.post('./Route/route.ts',{username,email,password})
+        console.log("response : "+response)
     }
     return (
         <>
