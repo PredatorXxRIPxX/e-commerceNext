@@ -1,3 +1,5 @@
+"use client"
+
 import { Product } from "@prisma/client";
 import prisma from "../../../db/db"
 import CardUI from "../../_lib/@Card/CardUI";
