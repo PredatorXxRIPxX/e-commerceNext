@@ -1,34 +1,32 @@
-import { NextApiRequest, NextApiResponse } from "next"
+"use server"
 import prisma from "../../../../db/db"
+import { Mongoresponse } from "../../../_lib/types/type"
 
-export async function RegisterAPI(req: NextApiRequest,res:NextApiResponse) {   
-      if(!prisma.$connect()){
-        await prisma.$connect()
-      }
-      const { name, email, password } = await req.body
-      if (!name || !email || !password) {
-        console.log('Missing required fields')
-        
-        return res.status(400).json({ message: 'Missing required fields' });
-      }
-    
-      try {    
-        const user = await prisma.user.create({
-          data: {
-            username: name,
-            email,
-            password: password,
-          },
-        });
-        console.log('User created successfully')
-        return res.status(201).json(user); 
-      } catch (error) {
-        console.error(error);
-        if (error.code === 'P2002') {
-          return res.status(400).json({ message: 'Email already exists' });
+export async function RegisterAPI(name: string, email: string, password: string){   
+
+    const user = await prisma.user.findUnique({
+        where: {
+            email: email
         }
-        res.status(500).json({ message: 'Internal Server Error' });
-      } finally {
-        await prisma.$disconnect();
-      }
+        }).then((user) => {
+        return user
+    })
+
+    if(user){
+        return user
+    }
+
+
+    await prisma.user.create({
+        data: {
+            username: name,
+            email: email,
+            password: password
+        }
+    }).then((user) => {
+        return user
+    }).catch((err) => {
+        return err
+    })
+    
 }

@@ -2,11 +2,13 @@
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import Link from "next/link";
 import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+//import { useDispatch } from "react-redux";
 // Import the action to be dispatched
 //import { login } from "../redux/actions"; 
 import axios from "axios";
+import loginAPI from "./Route/route";
+import { Mongoresponse } from "../../_lib/types/type";
 
 export default function Login() {
   //const dispatch = useDispatch();
@@ -18,16 +20,13 @@ export default function Login() {
   const handleClick = () => setShow(!show);
 
   const handleLogin = async () => {
-    try {
-      const response = await axios.post("./Route/route.ts", { email, password });
-      if (response.data.success) {
-        //dispatch(login(response.data.user));
-        router.push("/Homepage");
-      } else {
-        router.push("/Register");
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
+    var response = await loginAPI({ email, password });
+    console.log(response);
+    if(!response){
+      alert("Invalid Email or Password");
+      return;
+    }else{
+      router.push("/HomePage/Dashboard");
     }
   };
 
@@ -62,7 +61,7 @@ export default function Login() {
           </InputGroup>
         </div>
         <center>
-          <Button className="self-center" colorScheme="blue" size="lg" type="submit">
+          <Button className="self-center" colorScheme="blue" size="lg" onClick={handleLogin}>
             Log in
           </Button>
         </center>

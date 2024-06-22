@@ -7,3 +7,9 @@ export interface CardProps {
     price: string;
 }
 
+export interface Mongoresponse{
+    success:boolean;
+    message:string;
+    user:any;
+}
+
