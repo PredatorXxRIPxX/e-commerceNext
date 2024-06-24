@@ -1,6 +1,8 @@
+"use client"
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading ,Text,Divider,Button,ButtonGroup} from '@chakra-ui/react'
 import { Image } from '@chakra-ui/react';
-
+import { addOrder } from '../../../store/userSlice';
+import { useDispatch,useSelector } from 'react-redux';
 interface CardProps {
     id:string
     title: string;
@@ -10,6 +12,15 @@ interface CardProps {
 }
 
 export default function CardUI({id,title,description,imageUrl,price}:CardProps){
+    const user = useSelector((state:any)=>state.user);
+    const dispatch = useDispatch();
+    const handleAddToCart = ()=>{
+        dispatch(addOrder({id:id}))
+        alert("Added to cart")
+    }
+    const handleBuy = ()=>{
+        console.log("buy")
+    }
     return (
         <Card maxW='sm' key={id} className='bg-white font-bold text-black p-4 rounded-lg'>
         <CardBody>
@@ -34,10 +45,10 @@ export default function CardUI({id,title,description,imageUrl,price}:CardProps){
         <Divider />
         <CardFooter>
           <ButtonGroup spacing='2'>
-            <Button variant='solid' colorScheme='blue' className='bg-blue-500 text-white p-2 rounded-lg mr-5 ml-2'>
+            <Button variant='solid' colorScheme='blue' className='bg-blue-500 text-white p-2 rounded-lg mr-5 ml-2' onClick={handleBuy}>
               Buy now
             </Button>
-            <Button variant='ghost' colorScheme='blue' className='text-blue-500'>
+            <Button variant='ghost' colorScheme='blue' className='text-blue-500' onClick={handleAddToCart}>
               Add to cart
             </Button>
           </ButtonGroup>

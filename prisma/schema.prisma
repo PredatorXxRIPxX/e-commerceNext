@@ -18,7 +18,6 @@ model Product {
 model Order {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
   productsID String[] 
 }
 
@@ -29,5 +28,5 @@ model User {
   username String?
   email    String   @unique
   password String
-  orders   Order[]
+  orders   String[]
 }

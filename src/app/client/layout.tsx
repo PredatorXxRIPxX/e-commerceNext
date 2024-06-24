@@ -6,7 +6,6 @@ export default function HomePage({children}:{children:React.ReactNode}){
     const user = useSelector((state:any)=>state.user);
     return (
         <>
-            
             <nav className="flex items-center justify-center p-6 text-white bg-black font-bold">
                 <ul className="flex list-none items-center" >
                     <li className="p-4 ml-2 mr-2"><Link href={`/client/${user.id}/Shop`}>Shop</Link></li>
