@@ -13,3 +13,9 @@ export interface Mongoresponse{
     user:any;
 }
 
+export interface orderType{
+    id:string;
+    userId:string;
+    productId:string[];
+}
+

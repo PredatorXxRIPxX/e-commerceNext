@@ -13,15 +13,13 @@ model Product {
   description String?
   title       String
   image       String?
-  orderId     String?
-  Order       Order?   @relation(fields: [orderId], references: [id])
 }
 
 model Order {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   userId    String
   user      User      @relation(fields: [userId], references: [id])
-  products  Product[]
+  productsID String[] 
 }
 
 

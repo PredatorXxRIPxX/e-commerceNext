@@ -3,15 +3,14 @@ import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-//import { useDispatch } from "react-redux";
-// Import the action to be dispatched
-//import { login } from "../redux/actions"; 
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import loginAPI from "./Route/route";
-import { Mongoresponse } from "../../_lib/types/type";
+import { loginAdmin } from "../../../store/adminSlice";
+import { loginUser } from "../../../store/userSlice";
+
 
 export default function Login() {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,12 +20,17 @@ export default function Login() {
 
   const handleLogin = async () => {
     var response = await loginAPI({ email, password });
-    console.log(response);
     if(!response){
       alert("Invalid Email or Password");
       return;
     }else{
-      router.push("/HomePage/Dashboard");
+      if(response.email!="admin"){
+        dispatch(loginUser({auth: true,id: response.id, username: response.username, email: response.email, orders: []}))
+        router.replace(`/client/${response.id}/Shop`);
+      }else{
+        dispatch(loginAdmin({auth: true, username: response.username, email: response.email}))
+        router.replace(`/admin/Dashboard`);
+      }
     }
   };
 
