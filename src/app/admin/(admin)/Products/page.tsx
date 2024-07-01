@@ -1,7 +1,5 @@
 "use client";
 import { Product } from "@prisma/client";
-import prisma from "../../../../db/db";
-import CardUI from "../../../_lib/@Card/CardUI";
 import { Button } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import AddProduct from "../@addProduct/page";

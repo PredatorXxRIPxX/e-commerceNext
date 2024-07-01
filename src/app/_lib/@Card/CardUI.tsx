@@ -3,6 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter, Stack, Heading ,Text,Divider,Bu
 import { Image } from '@chakra-ui/react';
 import { addOrder } from '../../../store/userSlice';
 import { useDispatch,useSelector } from 'react-redux';
+import { addToOrder } from './route';
 interface CardProps {
     id:string
     title: string;
@@ -16,7 +17,13 @@ export default function CardUI({id,title,description,imageUrl,price}:CardProps){
     const dispatch = useDispatch();
     const handleAddToCart = ()=>{
         dispatch(addOrder({id:id}))
-        alert("Added to cart")
+        const response = addToOrder({idUser:user.id,idProduct:id});
+        console.log(response)
+        if(response){
+          alert('added to cart')
+        }else{
+          alert('error')
+        }
     }
     const handleBuy = ()=>{
         console.log("buy")

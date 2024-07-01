@@ -1,6 +1,5 @@
 "use server"
 import prisma from "../../../../db/db"
-import { Mongoresponse } from "../../../_lib/types/type"
 
 export async function RegisterAPI(name: string, email: string, password: string){   
 
@@ -15,7 +14,6 @@ export async function RegisterAPI(name: string, email: string, password: string)
     if(user){
         return user
     }
-
 
     await prisma.user.create({
         data: {
