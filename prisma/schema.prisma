@@ -19,7 +19,7 @@ model Order {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   userId    String
   productsID String
-  quantity Int @default(1)
+  quantity String @default("1")
 }
 
 
